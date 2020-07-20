@@ -14,3 +14,11 @@
 
 ## Model Accuracy
 <img src="https://user-images.githubusercontent.com/48057905/87844278-a2610a00-c8f6-11ea-8dbf-20f565e967c8.PNG"></img>
+
+
+## Decision Tree
+<img src="https://user-images.githubusercontent.com/48057905/87844278-a2610a00-c8f6-11ea-8dbf-20f565e967c8.PNG"></img>
+
+
+
+
