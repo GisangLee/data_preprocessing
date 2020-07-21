@@ -2,6 +2,7 @@ import os
 import numpy as np
 import pandas as pd
 from sklearn.model_selection import train_test_split
+from sklearn.neighbors import KNeighborsClassifier
 from sklearn.tree import DecisionTreeClassifier, export_graphviz
 import graphviz
 
@@ -17,8 +18,6 @@ for each in data.sex:
         tmp.append(1)
     elif each == 'male':
         tmp.append(0)
-    else:
-        tmp.append(np.nan)
 
 data.sex = tmp
 data.survived = data.survived.astype('int')
@@ -33,7 +32,7 @@ data = data[data.age.notnull()]
 print(data.info())
 print(data)
 
-to_use_data = data[['pclass', 'sex', 'age', 'sibsp', 'parch', 'fare']]
+to_use_data = data[['pclass', 'sex', 'age', 'sibsp', 'parch']]
 print(to_use_data.head())
 
 X_train, X_test, y_train, y_test = train_test_split(to_use_data, data[['survived']], random_state=13, test_size=0.2)
@@ -50,26 +49,16 @@ y_train = y_train.drop(['index'], axis=1)
 y_test = y_test.reset_index()
 y_test = y_test.drop(['index'], axis=1)
 
-clf = DecisionTreeClassifier(max_depth=10, random_state=13)
-clf.fit(X_train, y_train)
-print("Score : {:.2f}%\n".format(clf.score(X_train, y_train)*100))
+kn_clf = KNeighborsClassifier(n_neighbors=3)
+kn_clf.fit(X_train, y_train)
 
-export_graphviz(
-    clf,
-    out_file="titanic.dot",
-    feature_names=['pclas', 'sex', 'age', 'sibsp', 'parch', 'fare'],
-    class_names=['Unsurvived', 'Survived'],
-    rounded=True,
-    filled=True
-)
+dc_clf = DecisionTreeClassifier(max_depth=10)
+dc_clf.fit(X_train, y_train)
 
-with open("titanic.dot") as f:
-    dot_graph = f.read()
-dot = graphviz.Source(dot_graph)
-dot.format("png")
-dot.render(filename="titanic", directory="images/decision_trees", cleanup=True)
-dot
+print("KNeighbor 알고리즘 테스트 예측 : {}\n".format(kn_clf.predict(X_test)))
+print("KNeighbor 알고리즘 테스트 정확도 : {:.2f}%\n".format(kn_clf.score(X_test, y_test)*100))
 
-
+print("Decision Tree 알고리즘 테스트 예측: {}\n".format(dc_clf.predict(X_test)))
+print("Decision Tree 알고리즘 테스트 정확도: {:.2f}%\n".format(dc_clf.score(X_test, y_test)*100))
 
 
