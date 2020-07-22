@@ -25,10 +25,6 @@ pre_data['BasePay'] = pre_data.apply(lambda x: to_float(pre_data['BasePay']), ax
 pre_data['OvertimePay'] = pre_data.apply(lambda x: to_float(pre_data['OvertimePay']), axis=1)
 pre_data['OtherPay'] = pre_data.apply(lambda x: to_float(pre_data['OtherPay']), axis=1)
 
-print(pre_data.BasePay == "Not Provided")
-print(pre_data.OvertimePay == "Not Provided")
-print(pre_data.OtherPay == "Not Provided")
-
 pre_data['BasePay'] = pre_data['BasePay'].astype(float)
 pre_data['OvertimePay'] = pre_data['OvertimePay'].astype(float)
 pre_data['OtherPay'] = pre_data['OtherPay'].astype(float)
@@ -38,7 +34,6 @@ print(pre_data.head())
 print(pre_data.dtypes)
 print(pre_data.columns)
 
-plt.pie(pre_data.TotalPay)
-plt.legend(pre_data.JobTitle)
+sns.barplot(x=pre_data.JobTitle, y=pre_data.TotalPay, data=pre_data)
 plt.show()
 
