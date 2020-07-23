@@ -30,10 +30,16 @@ pre_data['OvertimePay'] = pre_data['OvertimePay'].astype(float)
 pre_data['OtherPay'] = pre_data['OtherPay'].astype(float)
 pre_data['Year'] = pre_data['Year'].astype(int)
 
+data_2011 = pre_data[pre_data.Year == 2011]
+data_2012 = pre_data[pre_data.Year == 2012]
+data_2013 = pre_data[pre_data.Year == 2013]
+data_2014 = pre_data[pre_data.Year == 2014]
+
+print(pre_data.describe())
 print(pre_data.head())
-print(pre_data.dtypes)
-print(pre_data.columns)
-
-sns.barplot(x=pre_data.JobTitle, y=pre_data.TotalPay, data=pre_data)
-plt.show()
-
+print(pre_data.isnull())
+print(data_2011.head())
+print(data_2012.head())
+print(data_2013.head())
+print(data_2014.head())
+print(data_2011.isnull())
