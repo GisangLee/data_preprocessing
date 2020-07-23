@@ -14,10 +14,11 @@ print("=================================\n")
 print("데이터 Overview : \n{}\n".format(db.describe()))
 print("=================================\n")
 
-stacked_data = db.groupby(["smoker", "sex"]).size().reset_index().pivot(columns="sex", index="smoker", values=0)
-print(stacked_data)
+print(db.corr(method="pearson"))
 
-plt.figure(figsize=(15, 30))
+sns.pairplot(db, height=2, aspect=0.6)
 
-sns.factorplot(kind="bar", x="region", hue="sex", y="bmi", data=db)
 plt.show()
+
+
+
